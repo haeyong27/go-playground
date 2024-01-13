@@ -2,6 +2,7 @@ package query
 
 import (
 	"reflect"
+	"riad/ent"
 	"testing"
 )
 
