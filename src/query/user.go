@@ -7,11 +7,19 @@ import (
 )
 
 func GetUser() []*ent.User {
-	db := datasource.NewDatabase("sqlite").Connect()
 	ctx := context.Background()
-	users, err := db.User.Query().All(ctx)
+	users, err := datasource.Client.User.Query().All(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return users
+}
+
+func CreateUser() *ent.User {
+	ctx := context.Background()
+	user, err := datasource.Client.User.Create().SetAge(30).Save(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return user
 }

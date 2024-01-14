@@ -8,17 +8,27 @@ type IDatabase interface {
 	Connect() *ent.Client
 }
 
-func NewDatabase(dbType string) IDatabase {
-	switch dbType {
-	case "sqlite":
-		return &Sqlite{}
-	default:
-		return &Sqlite{}
-	}
+type DataSource struct {
+	client *ent.Client
+	dbType string
 }
 
+func NewDatabase(dbType string) *DataSource {
+	ds := new(DataSource)
+	ds.dbType = dbType
+	return ds
+}
 
+func (ds *DataSource) Connect() {
+	var client IDatabase
+	switch ds.dbType {
+	case "s":
+		client = NewSqlite()
+	case "m":
+		client = NewSqliteMemory()
+	default:
+		client = NewSqliteMemory()
+	}
 
-
-
-
+	Client = client.Connect()
+}
