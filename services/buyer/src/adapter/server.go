@@ -8,17 +8,17 @@ import (
 )
 
 type Server struct {
-	router *Router
+	Router *Router
 }
 
 func NewServer(r *Router) *Server {
 	server := new(Server)
-	server.router = r
+	server.Router = r
 	return server
 }
 
 func (s *Server) Run() {
-	v1 := s.router.GroupRegister("/api/v1")
+	v1 := s.Router.GroupRegister("/api/v1")
 
 	// Add your routes here
 	v1.GET("/", func(c *gin.Context) {
@@ -60,5 +60,5 @@ func (s *Server) Run() {
 		})
 	})
 
-	s.router.Run()
+	s.Router.Run()
 }
