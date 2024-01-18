@@ -17,7 +17,7 @@ func NewServer(r *Router) *Server {
 	return server
 }
 
-func (s *Server) Run() {
+func (s *Server) Routing() {
 	v1 := s.Router.GroupRegister("/api/v1")
 
 	// Add your routes here
@@ -60,5 +60,4 @@ func (s *Server) Run() {
 		})
 	})
 
-	s.Router.Run()
 }

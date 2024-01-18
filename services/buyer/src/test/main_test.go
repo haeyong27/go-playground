@@ -1,6 +1,7 @@
-package main
+package test
 
 import (
+	"buyer/src/adapter"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -36,23 +37,12 @@ func TestMain(t *testing.T) {
 }
 
 func setupRouter() *gin.Engine {
-	router := gin.Default()
+	router := adapter.NewRouter()
+	server := adapter.NewServer(router)
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, World!",
-		})
-	})
+	server.Routing()
 
-	router.GET("/users", func(c *gin.Context) {
-		// TODO: Add implementation for query.GetUser()
-	})
-
-	router.GET("/user", func(c *gin.Context) {
-		// TODO: Add implementation for query.CreateUser()
-	})
-
-	return router
+	return server.Router.Engine
 }
 
 func performRequest(router *gin.Engine, method, path string) *httptest.ResponseRecorder {
